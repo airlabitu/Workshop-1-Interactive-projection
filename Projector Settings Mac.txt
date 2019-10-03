@@ -1,0 +1,2 @@
+-Inverted projector mode Mac (command+option mouse click on displays in SP)
+-Digital zoom on projector set from 100% to 90%
