@@ -1,4 +1,4 @@
-Resources for the AIR LAB workshop #1: Interactive projections:
+# Resources for the AIR LAB workshop #1: Interactive projections:
 
 On October 4th 2019, AIR Lab at ITU Copenhagen will be hosting a creative coding workshop, where we will be working with Kinect body tracking sensors and Processing to program and create interactive projections. Everyone is welcome, and people of all skill levels can participate.
 
