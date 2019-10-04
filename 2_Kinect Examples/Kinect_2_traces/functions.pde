@@ -1,3 +1,9 @@
+boolean mouseControl = true, showBorder = true, easingOnController = true;
+boolean cleanSketch_auto = true, showTarget;
+float kinectX, kinectY, easingX, easingY;
+float minSize, maxSize, sizeChange;
+color bgColor = color(0);
+
 void keyReleased() {
   /*  
    By pressing (and releasing) any of these numbered keys on your keyboard, 
@@ -16,6 +22,14 @@ void keyReleased() {
     easingOnController = !easingOnController;
     println("Easing on controller: " + easingOnController);
   }
+  if (key == '4') {
+    cleanSketch_auto = !cleanSketch_auto;
+    println("Automatic wipe of sketch: " + cleanSketch_auto);
+  }
+  if (key == '5') {
+    showTarget = !showTarget;
+    println("Show target (actual controller position): " + showTarget);
+  }
 }
 
 void controls() {
@@ -23,6 +37,10 @@ void controls() {
    We can use this function to have the controller follow either our mouse movements (for prototyping),
    or the Kinect, for when we display the sketch on the projector/kinect setup.
    */
+
+  //Track the previous coordinates of controllerX and controllerY
+  previousX = controllerX;
+  previousY = controllerY;
 
   if (mouseControl) {
     controllerX = mouseX;
@@ -45,6 +63,7 @@ void showBorder() {
     noFill();
     rect(0, 0, width, height);
     noStroke();
+    fill(255);
   }
 }
 
@@ -70,8 +89,19 @@ void easing(float e) {
     if (abs(dy) > 1) {
       easingY += dy * easing;
     }
-    fill(255, 0, 0);
-    ellipse(easingX, easingY, size/5, size/5);
+    //fill(255, 0, 0);
+    //ellipse(easingX, easingY, size/5, size/5);
+  }
+}
+
+void cleanSketch() {
+  //This function momentarily fades a black rectangle on top of the entire sketch, which effectively creates a clean slate for new drawings
+  int framesPerSecond = 60;
+  if (cleanSketch_auto) {
+    if (frameCount%(framesPerSecond*cleanTimerInSeconds) < framesPerSecond/2) {
+      fill(bgColor, 20);
+      rect(0, 0, width, height);
+    }
   }
 }
 
@@ -79,6 +109,7 @@ void runFunctions() {
   //Run all the functions described above. This function is called at the bottom of void draw().
   controls();
   showBorder();
+  cleanSketch();
   easing(0.05);
 }
 

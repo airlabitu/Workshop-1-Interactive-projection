@@ -13,10 +13,10 @@ class Area {
     cx = x + w/2;
     cy = y + h/2;
   }
-  
+
   void run() {
     strokeWeight(3);
-    
+
     if (showGrid) {
       stroke(c);
     } else {

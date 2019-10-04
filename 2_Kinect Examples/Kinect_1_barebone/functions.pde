@@ -1,3 +1,6 @@
+boolean mouseControl = true, showBorder = true, easingOnController = false;
+float kinectX, kinectY, easingX, easingY;
+
 void keyReleased() {
   /*  
    By pressing (and releasing) any of these numbered keys on your keyboard, 
@@ -15,18 +18,6 @@ void keyReleased() {
   if (key == '3') {
     easingOnController = !easingOnController;
     println("Easing on controller: " + easingOnController);
-  }
-  if (key == '4') {
-    showIDs = !showIDs;
-    println("Show ID on cell: " + showIDs);
-  }
-  if (key == '5') {
-    showGrid = !showGrid;
-    println("Show grid: " + showGrid);
-  }
-  if (key == '6') {
-    showHighlight = !showHighlight;
-    println("Show highlight on active area: " + showHighlight);
   }
 }
 
@@ -57,6 +48,7 @@ void showBorder() {
     noFill();
     rect(0, 0, width, height);
     noStroke();
+    fill(255);
   }
 }
 
@@ -82,10 +74,8 @@ void easing(float e) {
     if (abs(dy) > 1) {
       easingY += dy * easing;
     }
-    noFill();
-    strokeWeight(3);
-    stroke(255, 0, 0);
-    ellipse(easingX, easingY, size/3, size/3);
+    //fill(255, 0, 0);
+    //ellipse(easingX, easingY, size/5, size/5);
   }
 }
 
@@ -118,7 +108,7 @@ void startKinectOSC() {
    This function is used to set up the connection with the Kinect Debug Interface, which is made in OpenFrameworks.
    For this Workshop, there is no reason to change any of the give parameters 
    */
-   
+
   oscP5 = new OscP5(this, 12345);
   myRemoteLocation = new NetAddress("127.0.0.1", 12000);
   println();

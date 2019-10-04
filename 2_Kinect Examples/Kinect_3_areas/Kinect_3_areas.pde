@@ -6,30 +6,25 @@ import netP5.*;
 OscP5 oscP5;
 NetAddress myRemoteLocation;
 
-//Global variables
-float controllerX, controllerY, kinectX, kinectY, easingX, easingY;
-float size;
-boolean mouseControl = true, showBorder = true, easingOnController = false;
-boolean showIDs = true, showGrid = true, showHighlight = true;
+//Define global variables below:
+float controllerX, controllerY;
+float size = 100;
 
 //Set the amount of rows and columns for the grid
 int rows = 4, cols = 4;
 Area[][] areas = new Area[rows][cols];
 
 void setup() {
-  /*
-   I recommend using the size() function when prototyping with the mouse, and the fullscreen() function using the Kinect. 
-   Comment the counterpart out, as these two function cannot run at the same time.
-   */
-
+  //Choose if you want to use size() or fullscreen(). 
+  //Comment the counterpart out, as these two function cannot run at the same time.
   size(800, 500);
   //fullScreen();
 
-  //Hide the mouse cursor as we open the sketch. Comment out/remove if needed
-  noCursor();
+  //Kinect setup
+  startKinectOSC();
 
-  //Make sure the size of the of the controller (ellipse) is responsive to the size of the screen
-  size = height/4;
+  //Uncomment function below to hide the mouse pointer
+  //noCursor();
 
   //Initialize the grid
   for (int i = 0; i < rows; i++) {
@@ -42,9 +37,6 @@ void setup() {
       areas[i][j] = new Area(i+(j*rows), i*cellWidth, j*cellHeight, cellWidth, cellHeight);
     }
   }
-
-  //Kinect setup
-  startKinectOSC();
 }
 
 void draw() {
